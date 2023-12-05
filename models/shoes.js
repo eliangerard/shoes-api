@@ -9,15 +9,19 @@ const shoesSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  price: {
+    type: Number,
+    required: true
+  },
   sizes: {
     type: [Number],
     required: true
   },
-  colors: {
+  images: {
     type: [String],
-    required: true
+    required: false
   },
-  image: {
+  description: {
     type: String,
     required: false
   }
