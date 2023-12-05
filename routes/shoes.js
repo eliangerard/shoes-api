@@ -22,22 +22,28 @@ router.get('/:id', getShoes, (req, res) => {
 // Creating one
 router.post('/', async (req, res) => {
   try {
-    const shoes = new Shoes({
-      brand: req.body.brand,
-      model: req.body.model,
-      price: req.body.price,
-      sizes: req.body.sizes,
-      images: req.body.images,
-      description: req.body.description
-    })
+    const shoesArray = req.body.shoesArray;
+    const newShoesArray = [];
 
-    const newShoes = await shoes.save()
-    res.status(201).json(newShoes)
+    for (let i = 0; i < shoesArray.length; i++) {
+      const shoes = new Shoes({
+        brand: shoesArray[i].brand,
+        model: shoesArray[i].model,
+        price: shoesArray[i].price,
+        sizes: shoesArray[i].sizes,
+        images: shoesArray[i].images,
+        description: shoesArray[i].description
+      });
+
+      const newShoes = await shoes.save();
+      newShoesArray.push(newShoes);
+    }
+
+    res.status(201).json(newShoesArray);
   } catch (err) {
-    res.status(400).json({ message: err.message })
+    res.status(400).json({ message: err.message });
   }
-
-})
+});
 
 // Updating One
 router.patch('/:id', getShoes, async (req, res) => {
