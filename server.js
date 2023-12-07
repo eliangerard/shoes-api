@@ -15,7 +15,7 @@ app.use(express.json({ limit: '50mb' }))
 app.use(cors());
 
 
-const shoesRouter = require('./routes/shoes')
-app.use('/shoes', shoesRouter)
+const shoesRouter = require('./routes/product')
+app.use('/products', shoesRouter)
 
 app.listen(process.env.PORT, () => console.log('Server Started'))
