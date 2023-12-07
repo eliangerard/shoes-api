@@ -19,6 +19,23 @@ router.get('/:id', getProduct, (req, res) => {
   res.json(res.product)
 })
 
+// Endpoint para buscar productos por brand y/o model
+router.get('/search/:search', async (req, res) => {
+  const search = req.params.search;
+  try {
+    const products = await Product.find({
+      $or: [
+        { brand: { $regex: search, $options: 'i' } },
+        { model: { $regex: search, $options: 'i' } }
+      ]
+    });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 // Endpoint para crear uno o varios productos, recibe un arreglo de estos
 router.post('/', async (req, res) => {
   try {
